@@ -1,36 +1,128 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ramsha Jawaid Cyberpunk Portfolio
 
-## Getting Started
+Futuristic personal portfolio for Ramsha Jawaid with a Next.js frontend and a FastAPI backend that stores contact form submissions in Neon PostgreSQL.
 
-First, run the development server:
+## Folder Structure
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```text
+task1-beginner-profile/
+├─ frontend/
+│  ├─ app/
+│  │  ├─ components/
+│  │  │  └─ portfolio-experience.tsx
+│  │  ├─ globals.css
+│  │  ├─ layout.tsx
+│  │  └─ page.tsx
+│  ├─ public/
+│  ├─ .env.example
+│  ├─ package.json
+│  └─ next.config.ts
+├─ backend/
+│  ├─ app/
+│  │  ├─ config.py
+│  │  ├─ database.py
+│  │  ├─ main.py
+│  │  ├─ models.py
+│  │  └─ schemas.py
+│  ├─ alembic/
+│  │  ├─ versions/
+│  │  │  └─ 20260512_0001_create_contact_messages.py
+│  │  └─ env.py
+│  ├─ .env.example
+│  ├─ alembic.ini
+│  └─ requirements.txt
+└─ README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Dark cosmic cyberpunk interface with animated particle background and central glowing sphere.
+- Theme switcher for Cyberpunk, Volcanic, and Emerald palettes.
+- Glassmorphic cards, neon hover states, Framer Motion entrance animations, and terminal typing hero.
+- Fully responsive sections for Hero, About, Skills, Experience, Projects, Education, and Contact.
+- `POST /contact` FastAPI endpoint with Pydantic validation, SQLAlchemy persistence, CORS, and error handling.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Frontend Setup
 
-## Learn More
+```bash
+cd frontend
+npm install
+cp .env.example .env.local
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open `http://localhost:3000`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Environment:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```env
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
+```
 
-## Deploy on Vercel
+## Backend Setup
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+cd backend
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+copy .env.example .env
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Update `backend/.env` with your Neon connection string:
+
+```env
+DATABASE_URL=postgresql+psycopg://USER:PASSWORD@HOST.neon.tech/DBNAME?sslmode=require
+FRONTEND_ORIGIN=http://localhost:3000
+```
+
+Run migrations and start the API:
+
+```bash
+alembic upgrade head
+uvicorn app.main:app --reload --port 8000
+```
+
+Health check: `http://localhost:8000/health`
+
+Contact endpoint:
+
+```http
+POST /contact
+Content-Type: application/json
+
+{
+  "name": "Client Name",
+  "email": "client@example.com",
+  "subject": "Project inquiry",
+  "message": "I would like to discuss a portfolio project."
+}
+```
+
+## Neon Setup
+
+1. Create a Neon project at `https://console.neon.tech`.
+2. Create or select a database.
+3. Copy the pooled or direct PostgreSQL connection string.
+4. Use the SQLAlchemy-compatible prefix `postgresql+psycopg://`.
+5. Keep `sslmode=require` in the URL.
+6. Paste it into `backend/.env` as `DATABASE_URL`.
+7. Run `alembic upgrade head` from `backend/`.
+
+## Deployment Guide
+
+Frontend on Vercel:
+
+1. Set the project root to `frontend`.
+2. Add `NEXT_PUBLIC_API_BASE_URL` pointing to the deployed FastAPI URL.
+3. Deploy with the default Next.js build command `npm run build`.
+
+Backend on Render, Railway, Fly.io, or similar:
+
+1. Set the service root to `backend`.
+2. Install command: `pip install -r requirements.txt`.
+3. Start command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`.
+4. Add `DATABASE_URL` and `FRONTEND_ORIGIN` environment variables.
+5. Run `alembic upgrade head` during release or from the provider shell.
+
+For production CORS, set `FRONTEND_ORIGIN` to the exact deployed frontend origin.
