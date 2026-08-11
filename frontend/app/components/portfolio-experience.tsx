@@ -1,8 +1,9 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import Particles, { initParticlesEngine } from "@tsparticles/react";
+import { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import type { ISourceOptions } from "@tsparticles/engine";
 import {
@@ -25,8 +26,15 @@ import {
   Smartphone,
   Sparkles,
   Terminal,
+  ToggleLeft,
+  ToggleRight,
   X,
 } from "lucide-react";
+
+const Particles = dynamic(() => import("@tsparticles/react"), {
+  ssr: false,
+  loading: () => null,
+});
 
 type ThemeKey = "cyberpunk" | "volcanic" | "emerald";
 
@@ -40,9 +48,9 @@ const navItems = ["About", "Skills", "Experience", "Projects", "Education", "Con
 
 const stats = [
   ["1.5+", "Years Experience"],
-  ["4", "Major Projects"],
-  ["3", "E-commerce Channels"],
-  ["AI", "Agent Development"],
+  ["1 mo", "Nexeagent Internship"],
+  ["SEO", "Optimization"],
+  ["Lazy", "Performance Loading"],
 ];
 
 const skills = [
@@ -50,11 +58,20 @@ const skills = [
   { group: "Backend", icon: Server, items: ["Node.js", "Python", "FastAPI", "Django", "REST APIs"] },
   { group: "Mobile", icon: Smartphone, items: ["Flutter", "Responsive UI", "App Workflows"] },
   { group: "E-commerce", icon: ShoppingBag, items: ["Amazon FBA", "Shopify Setup", "Store Customization", "Daraz Seller Central"] },
-  { group: "AI & Emerging Tech", icon: Bot, items: ["AI Agent Open SDK", "Spec-Driven AI", "Automation"] },
+  { group: "Agenti AI Engineering", icon: Bot, items: ["AI Agent Open SDK", "Spec-Driven AI", "AI Agent Workflows", "Automation", "Nexeagent Workflows"] },
+  { group: "SEO & Performance", icon: Rocket, items: ["Technical SEO", "Metadata", "Structured Data", "Lazy Loading", "Responsive Performance"] },
   { group: "Tools", icon: Database, items: ["Git", "WordPress", "Agile/Scrum", "Microsoft Office"] },
 ];
 
 const experiences = [
+  {
+    title: "Nexeagent Internship",
+    period: "1 Month",
+    points: [
+      "Built practical experience with AI-assisted development workflows and modern web delivery.",
+      "Worked on SEO optimization, lazy loading, UI toggle behavior, and performance-focused portfolio improvements.",
+    ],
+  },
   {
     title: "Amazon FBA Wholesale Virtual Assistant",
     period: "Nov 2023 - Present",
@@ -82,10 +99,83 @@ const experiences = [
 ];
 
 const projects = [
-  ["Memory Game", "Interactive web game built with React and TypeScript.", "React", "TypeScript"],
-  ["Preparatory School Portal", "Full-stack school management system for academic operations.", "Next.js", "Backend"],
-  ["E-commerce Store", "Modern full-stack online store with product and order flows.", "Full Stack", "Commerce"],
-  ["Shopify Store", "Custom-built Shopify storefront with advanced features.", "Shopify", "UX"],
+  {
+    name: "Developer Projects Dashboard",
+    description: "Full-stack developer portfolio dashboard showcasing projects, skills, analytics, demos, and deployment links.",
+    tagA: "Full Stack",
+    tagB: "Dashboard",
+    href: "https://6-tasks-dashboard.vercel.app/",
+  },
+  {
+    name: "Nebula Analytics",
+    description: "Next-generation SaaS analytics dashboard for modern teams.",
+    tagA: "SaaS",
+    tagB: "Analytics",
+    href: "https://frontend-sigma-pied-91.vercel.app/",
+  },
+  {
+    name: "Intermediate Blog Platform",
+    description: "Modern, cyberpunk-inspired blog platform for publishing and exploring content.",
+    tagA: "Blog",
+    tagB: "Platform",
+    href: "https://task3-intermediate-blog-plateform-f.vercel.app/",
+  },
+  {
+    name: "Nebula Tasks",
+    description: "Authentication-based cosmic task-management application.",
+    tagA: "Tasks",
+    tagB: "Auth",
+    href: "https://frontend-fawn-sigma-90.vercel.app/",
+  },
+  {
+    name: "Nexus Store",
+    description: "Premium dark cosmic e-commerce platform for futuristic devices.",
+    tagA: "E-commerce",
+    tagB: "Storefront",
+    href: "https://task4-intermediate-e-commerce-front.vercel.app/",
+  },
+  {
+    name: "Nexe Blog Platform",
+    description: "Modern, cyberpunk-inspired blog platform with a distinct Nexe deployment.",
+    tagA: "Blog",
+    tagB: "Nexe",
+    href: "https://nexe-blog-frontend.vercel.app/",
+  },
+  {
+    name: "Memory Game",
+    description: "Interactive web game built with React and TypeScript.",
+    tagA: "React",
+    tagB: "TypeScript",
+    href: "https://vercel.com/roxyross-projects",
+  },
+  {
+    name: "Preparatory School Portal",
+    description: "Full-stack school management system for academic operations.",
+    tagA: "Next.js",
+    tagB: "Backend",
+    href: "https://vercel.com/roxyross-projects",
+  },
+  {
+    name: "E-commerce Store",
+    description: "Modern full-stack online store with product and order flows.",
+    tagA: "Full Stack",
+    tagB: "Commerce",
+    href: "https://vercel.com/roxyross-projects",
+  },
+  {
+    name: "Shopify Store",
+    description: "Custom-built Shopify storefront with advanced features.",
+    tagA: "Shopify",
+    tagB: "UX",
+    href: "https://vercel.com/roxyross-projects",
+  },
+  {
+    name: "Vercel Dashboard Projects",
+    description: "Workspace collection for current Vercel deployments and project updates.",
+    tagA: "Vercel",
+    tagB: "Deployments",
+    href: "https://vercel.com/roxyross-projects",
+  },
 ];
 
 const education = [
@@ -134,15 +224,17 @@ function Section({
 export function PortfolioExperience() {
   const [theme, setTheme] = useState<ThemeKey>("cyberpunk");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [effectsEnabled, setEffectsEnabled] = useState(true);
   const [particlesReady, setParticlesReady] = useState(false);
   const [typed, setTyped] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   useEffect(() => {
+    if (!effectsEnabled || particlesReady) return;
     initParticlesEngine(async (engine) => {
       await loadSlim(engine);
     }).then(() => setParticlesReady(true));
-  }, []);
+  }, [effectsEnabled, particlesReady]);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -206,7 +298,7 @@ export function PortfolioExperience() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[var(--background)] text-white">
       <div className="pointer-events-none fixed inset-0 cyber-grid opacity-35" />
-      {particlesReady ? (
+      {effectsEnabled && particlesReady ? (
         <Particles id="space-particles" className="pointer-events-none fixed inset-0" options={particleOptions} />
       ) : null}
 
@@ -223,6 +315,14 @@ export function PortfolioExperience() {
             ))}
           </div>
           <div className="hidden items-center gap-2 md:flex">
+            <button
+              onClick={() => setEffectsEnabled((value) => !value)}
+              aria-pressed={effectsEnabled}
+              className="glass inline-flex h-10 items-center gap-2 rounded-lg px-3 text-xs font-bold uppercase tracking-wider text-slate-200 transition hover:border-[var(--accent)]"
+            >
+              {effectsEnabled ? <ToggleRight size={18} className="text-[var(--accent)]" /> : <ToggleLeft size={18} />}
+              Effects
+            </button>
             {(Object.keys(themes) as ThemeKey[]).map((key) => (
               <button
                 key={key}
@@ -247,6 +347,14 @@ export function PortfolioExperience() {
                   {item}
                 </a>
               ))}
+              <button
+                onClick={() => setEffectsEnabled((value) => !value)}
+                aria-pressed={effectsEnabled}
+                className="inline-flex items-center gap-2 text-left text-sm text-slate-200"
+              >
+                {effectsEnabled ? <ToggleRight size={18} className="text-[var(--accent)]" /> : <ToggleLeft size={18} />}
+                Effects {effectsEnabled ? "on" : "off"}
+              </button>
             </div>
           </div>
         ) : null}
@@ -256,14 +364,14 @@ export function PortfolioExperience() {
         <motion.div initial={{ opacity: 0, y: 26 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
           <div className="glass inline-flex items-center gap-3 rounded-full px-4 py-2 text-sm text-slate-200">
             <Sparkles size={16} className="text-[var(--accent)]" />
-            Karachi, Pakistan - Full-Stack Web Developer
+            Karachi, Pakistan - Agenti AI Engineer
           </div>
           <h1 className="mt-7 max-w-4xl font-display text-5xl font-black uppercase leading-tight sm:text-7xl lg:text-8xl">
             Ramsha <span className="neon-text">Jawaid</span>
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl">
-            Dynamic Full-Stack Web Developer and E-commerce Specialist with 1.5+ years of hands-on experience building modern web applications,
-            managing online stores, and leveraging AI to solve real-world problems.
+            Agenti AI Engineer, full-stack web developer, and e-commerce specialist with 1.5+ years of hands-on experience, including a one-month
+            Nexeagent internship focused on AI agent workflows, SEO optimization, lazy loading, UI toggles, and AI-assisted web delivery.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <a href="#contact" className="inline-flex h-12 items-center gap-2 rounded-lg bg-[var(--accent)] px-6 font-bold text-slate-950 shadow-[0_0_30px_var(--shadow)] transition hover:scale-[1.02]">
@@ -309,8 +417,8 @@ export function PortfolioExperience() {
         <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
           <div className="glass rounded-lg p-6">
             <p className="text-lg leading-8 text-slate-300">
-              Ramsha blends full-stack engineering, commerce operations, and practical AI development into digital products that are fast,
-              usable, and commercially aware.
+              Ramsha Jawaid is an Agenti AI Engineer who blends AI agent workflows, full-stack engineering, SEO optimization, and commerce
+              operations into digital products that are fast, usable, discoverable, and commercially aware.
             </p>
             <div className="mt-8 grid gap-4 text-sm text-slate-300">
               <span className="flex items-center gap-3"><MapPin className="text-[var(--accent)]" size={18} /> Karachi, Pakistan</span>
@@ -319,7 +427,7 @@ export function PortfolioExperience() {
             </div>
           </div>
           <div className="grid gap-4 sm:grid-cols-3">
-            {["Modern web apps", "AI workflows", "Online store growth"].map((item, index) => (
+            {["Agenti AI workflows", "Modern web apps", "SEO-ready pages"].map((item, index) => (
               <motion.div key={item} className="glass rounded-lg p-6" whileHover={{ y: -8, boxShadow: "0 0 46px var(--shadow)" }}>
                 <Rocket className="mb-8 text-[var(--accent)]" />
                 <div className="font-display text-3xl font-black">0{index + 1}</div>
@@ -372,17 +480,25 @@ export function PortfolioExperience() {
 
       <Section id="projects" eyebrow="04 / Builds" title="Projects">
         <div className="grid gap-5 md:grid-cols-2">
-          {projects.map(([name, description, tagA, tagB]) => (
-            <motion.article key={name} className="group glass rounded-lg p-6" whileHover={{ y: -8 }}>
+          {projects.map((project) => (
+            <motion.article key={project.name} className="group glass rounded-lg p-6" whileHover={{ y: -8 }}>
               <div className="flex items-center justify-between gap-4">
                 <BriefcaseBusiness className="text-[var(--accent)]" />
-                <ArrowUpRight className="transition group-hover:translate-x-1 group-hover:-translate-y-1" />
+                <a
+                  href={project.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Open ${project.name}`}
+                  className="grid size-10 place-items-center rounded-lg border border-white/10 transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
+                >
+                  <ArrowUpRight className="transition group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </a>
               </div>
-              <h3 className="mt-8 font-display text-2xl font-bold">{name}</h3>
-              <p className="mt-3 text-slate-300">{description}</p>
+              <h3 className="mt-8 font-display text-2xl font-bold">{project.name}</h3>
+              <p className="mt-3 text-slate-300">{project.description}</p>
               <div className="mt-6 flex gap-2">
-                <span className="rounded-full bg-[var(--accent)] px-3 py-1 text-xs font-bold text-slate-950">{tagA}</span>
-                <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-slate-300">{tagB}</span>
+                <span className="rounded-full bg-[var(--accent)] px-3 py-1 text-xs font-bold text-slate-950">{project.tagA}</span>
+                <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-slate-300">{project.tagB}</span>
               </div>
             </motion.article>
           ))}

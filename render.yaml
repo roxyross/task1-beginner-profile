@@ -12,4 +12,4 @@ services:
       - key: DATABASE_URL
         sync: false
       - key: FRONTEND_ORIGIN
-        value: https://frontend-roxyross-projects.vercel.app
+        value: https://task1-beginner-profile-frontend-aedxqfb1e-roxyross-projects.vercel.app
