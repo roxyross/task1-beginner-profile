@@ -51,7 +51,7 @@ This guide will help you deploy your FastAPI backend to Hugging Face Spaces and 
    - Click on "Variables and secrets"
    - Add these secrets:
      - **Name**: `DATABASE_URL`
-       **Value**: `postgresql://neondb_owner:npg_fd8DKBogF7AU@ep-withered-tree-ap63bgnn-pooler.c-7.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require`
+       **Value**: Use your private database connection string from your provider. Never commit it to this repository.
      
      - **Name**: `FRONTEND_ORIGIN`
        **Value**: `https://task1-beginner-profile-frontend-aedxqfb1e-roxyross-projects.vercel.app`

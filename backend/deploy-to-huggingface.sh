@@ -75,7 +75,7 @@ if [ $? -eq 0 ]; then
     echo "📋 Next steps:"
     echo "1. Go to https://huggingface.co/spaces/$HF_USERNAME/$SPACE_NAME/settings"
     echo "2. Add these environment variables:"
-    echo "   - DATABASE_URL: postgresql://neondb_owner:npg_fd8DKBogF7AU@ep-withered-tree-ap63bgnn-pooler.c-7.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+    echo "   - DATABASE_URL: your private database connection string (configure it as a Space secret)"
     echo "   - FRONTEND_ORIGIN: https://task1-beginner-profile-frontend-aedxqfb1e-roxyross-projects.vercel.app"
     echo ""
     echo "3. Wait for the Space to build (check the logs)"
