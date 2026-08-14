@@ -12,7 +12,7 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Ramsha Jawaid",
-    jobTitle: "Agenti AI Engineer",
+    jobTitle: "Agentic AI Engineer",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Karachi",
@@ -31,7 +31,7 @@ export default function Home() {
       "FastAPI",
       "E-commerce operations",
       "AI agent workflows",
-      "Agenti AI engineering",
+      "Agentic AI engineering",
     ],
   };
 

@@ -58,7 +58,7 @@ const skills = [
   { group: "Backend", icon: Server, items: ["Node.js", "Python", "FastAPI", "Django", "REST APIs"] },
   { group: "Mobile", icon: Smartphone, items: ["Flutter", "Responsive UI", "App Workflows"] },
   { group: "E-commerce", icon: ShoppingBag, items: ["Amazon FBA", "Shopify Setup", "Store Customization", "Daraz Seller Central"] },
-  { group: "Agenti AI Engineering", icon: Bot, items: ["AI Agent Open SDK", "Spec-Driven AI", "AI Agent Workflows", "Automation", "Nexeagent Workflows"] },
+  { group: "Agentic AI Engineering", icon: Bot, items: ["AI Agent Open SDK", "Spec-Driven AI", "AI Agent Workflows", "Automation", "Nexeagent Workflows"] },
   { group: "SEO & Performance", icon: Rocket, items: ["Technical SEO", "Metadata", "Structured Data", "Lazy Loading", "Responsive Performance"] },
   { group: "Tools", icon: Database, items: ["Git", "WordPress", "Agile/Scrum", "Microsoft Office"] },
 ];
@@ -364,13 +364,13 @@ export function PortfolioExperience() {
         <motion.div initial={{ opacity: 0, y: 26 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
           <div className="glass inline-flex items-center gap-3 rounded-full px-4 py-2 text-sm text-slate-200">
             <Sparkles size={16} className="text-[var(--accent)]" />
-            Karachi, Pakistan - Agenti AI Engineer
+            Karachi, Pakistan - Agentic AI Engineer
           </div>
           <h1 className="mt-7 max-w-4xl font-display text-5xl font-black uppercase leading-tight sm:text-7xl lg:text-8xl">
             Ramsha <span className="neon-text">Jawaid</span>
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl">
-            Agenti AI Engineer, full-stack web developer, and e-commerce specialist with 1.5+ years of hands-on experience, including a one-month
+            Agentic AI Engineer, full-stack web developer, and e-commerce specialist with 1.5+ years of hands-on experience, including a one-month
             Nexeagent internship focused on AI agent workflows, SEO optimization, lazy loading, UI toggles, and AI-assisted web delivery.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
@@ -417,7 +417,7 @@ export function PortfolioExperience() {
         <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
           <div className="glass rounded-lg p-6">
             <p className="text-lg leading-8 text-slate-300">
-              Ramsha Jawaid is an Agenti AI Engineer who blends AI agent workflows, full-stack engineering, SEO optimization, and commerce
+              Ramsha Jawaid is an Agentic AI Engineer who blends AI agent workflows, full-stack engineering, SEO optimization, and commerce
               operations into digital products that are fast, usable, discoverable, and commercially aware.
             </p>
             <div className="mt-8 grid gap-4 text-sm text-slate-300">
@@ -427,7 +427,7 @@ export function PortfolioExperience() {
             </div>
           </div>
           <div className="grid gap-4 sm:grid-cols-3">
-            {["Agenti AI workflows", "Modern web apps", "SEO-ready pages"].map((item, index) => (
+            {["Agentic AI workflows", "Modern web apps", "SEO-ready pages"].map((item, index) => (
               <motion.div key={item} className="glass rounded-lg p-6" whileHover={{ y: -8, boxShadow: "0 0 46px var(--shadow)" }}>
                 <Rocket className="mb-8 text-[var(--accent)]" />
                 <div className="font-display text-3xl font-black">0{index + 1}</div>

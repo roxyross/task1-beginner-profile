@@ -4,14 +4,14 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://ramsha-jawaid.vercel.app"),
   title: {
-    default: "Ramsha Jawaid | Agenti AI Engineer, Full-Stack Developer & SEO-Focused Builder",
+    default: "Ramsha Jawaid | Agentic AI Engineer, Full-Stack Developer & SEO-Focused Builder",
     template: "%s | Ramsha Jawaid",
   },
   description:
-    "Portfolio for Ramsha Jawaid, an Agenti AI Engineer and full-stack web developer, Nexeagent intern, SEO optimization learner, e-commerce specialist, and AI agent developer in Karachi, Pakistan.",
+    "Portfolio for Ramsha Jawaid, an Agentic AI Engineer and full-stack web developer, Nexeagent intern, SEO optimization learner, e-commerce specialist, and AI agent developer in Karachi, Pakistan.",
   keywords: [
     "Ramsha Jawaid",
-    "Agenti AI Engineer",
+    "Agentic AI Engineer",
     "Full Stack Developer Karachi",
     "Nexeagent intern",
     "SEO optimization",
@@ -23,18 +23,18 @@ export const metadata: Metadata = {
   authors: [{ name: "Ramsha Jawaid" }],
   creator: "Ramsha Jawaid",
   openGraph: {
-    title: "Ramsha Jawaid | Agenti AI Engineer",
+    title: "Ramsha Jawaid | Agentic AI Engineer",
     description:
-      "Agenti AI Engineer portfolio covering AI agent workflows, web apps, SEO optimization, lazy-loading performance work, and e-commerce operations.",
+      "Agentic AI Engineer portfolio covering AI agent workflows, web apps, SEO optimization, lazy-loading performance work, and e-commerce operations.",
     type: "website",
     locale: "en_PK",
     siteName: "Ramsha Jawaid Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ramsha Jawaid | Agenti AI Engineer",
+    title: "Ramsha Jawaid | Agentic AI Engineer",
     description:
-      "Agenti AI Engineer and Nexeagent intern focused on AI agent workflows and performant, SEO-aware web applications.",
+      "Agentic AI Engineer and Nexeagent intern focused on AI agent workflows and performant, SEO-aware web applications.",
   },
   robots: {
     index: true,
